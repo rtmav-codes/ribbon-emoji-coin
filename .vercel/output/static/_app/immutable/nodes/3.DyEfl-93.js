@@ -1,0 +1,1 @@
+import{a as i,t as o}from"../chunks/disclose-version.Bk-e0Tb6.js";import"../chunks/legacy.BrX7FqZQ.js";var s=o('<div class="h-screen w-screen bg-[#fec7de] text-white p-4 flex flex-col items-center justify-center"><h1 class="text-7xl">🎀</h1> <h2 class="text-3xl">The Pink Ribbon Emoji Coin</h2></div>');function c(e){var t=s();i(e,t)}export{c as component};
