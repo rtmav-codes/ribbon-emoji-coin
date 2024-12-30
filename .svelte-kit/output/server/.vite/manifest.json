@@ -61,7 +61,7 @@
       "_index.js"
     ],
     "css": [
-      "_app/immutable/assets/_layout.BiSAZ75b.css"
+      "_app/immutable/assets/_layout.CjwzXxAs.css"
     ]
   },
   "src/routes/+page.svelte": {
@@ -74,6 +74,12 @@
     "file": "entries/pages/home/_page.svelte.js",
     "name": "entries/pages/home/_page.svelte",
     "src": "src/routes/home/+page.svelte",
+    "isEntry": true
+  },
+  "src/routes/howtobuy/+page.svelte": {
+    "file": "entries/pages/howtobuy/_page.svelte.js",
+    "name": "entries/pages/howtobuy/_page.svelte",
+    "src": "src/routes/howtobuy/+page.svelte",
     "isEntry": true
   }
 }
