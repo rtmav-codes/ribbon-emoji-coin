@@ -1,4 +1,4 @@
-<div class="h-screen w-screen bg-[#fec7de] text-white flex flex-col items-center justify-center p-10">
+<div class="h-screen w-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-300 via-pink-300 to-pink-100 text-white flex flex-col items-center justify-center p-10">
     <h1 class="text-7xl">🎀</h1>
     <h2 class="lg:text-3xl text-xl font-bold text-center mt-2 text-[#f35087]">The Pink Ribbon Emoji Coin</h2>
     <div class="flex flex-col justify-center items-center mt-5">

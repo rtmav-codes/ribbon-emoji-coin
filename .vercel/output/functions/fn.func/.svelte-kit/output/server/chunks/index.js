@@ -79,6 +79,9 @@ function render(component, options = {}) {
     body: payload.out
   };
 }
+function stringify(value) {
+  return typeof value === "string" ? value : value == null ? "" : value + "";
+}
 function slot(payload, $$props, name, slot_props, fallback_fn) {
   var slot_fn = $$props.$$slots?.[name];
   if (slot_fn === true) {
@@ -88,12 +91,20 @@ function slot(payload, $$props, name, slot_props, fallback_fn) {
     slot_fn(payload, slot_props);
   }
 }
+function ensure_array_like(array_like_or_iterator) {
+  if (array_like_or_iterator) {
+    return array_like_or_iterator.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
+  }
+  return [];
+}
 export {
   HYDRATION_ERROR as H,
   HYDRATION_START as a,
   HYDRATION_END as b,
   pop as c,
   slot as d,
+  ensure_array_like as e,
+  stringify as f,
   getContext as g,
   push as p,
   render as r,

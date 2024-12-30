@@ -10,7 +10,7 @@ return {
 	assets: new Set(["aptos-white.png","emojifun.png","favicon.ico","favicon.png","ribbon.png","tg.png","x.png"]),
 	mimeTypes: {".png":"image/png"},
 	_: {
-		client: {"start":"_app/immutable/entry/start.D1aOTT8X.js","app":"_app/immutable/entry/app.ByYaPZFM.js","imports":["_app/immutable/entry/start.D1aOTT8X.js","_app/immutable/chunks/entry.qqXs5Gxa.js","_app/immutable/chunks/runtime.Dr4XedoK.js","_app/immutable/chunks/index-client.CRH35Lmc.js","_app/immutable/entry/app.ByYaPZFM.js","_app/immutable/chunks/runtime.Dr4XedoK.js","_app/immutable/chunks/render.p_grq_zW.js","_app/immutable/chunks/disclose-version.Bk-e0Tb6.js","_app/immutable/chunks/index-client.CRH35Lmc.js"],"stylesheets":[],"fonts":[],"uses_env_dynamic_public":false},
+		client: {"start":"_app/immutable/entry/start.FdZT9JDJ.js","app":"_app/immutable/entry/app.C5mjb9xE.js","imports":["_app/immutable/entry/start.FdZT9JDJ.js","_app/immutable/chunks/entry.CYs5sjB7.js","_app/immutable/chunks/runtime.CGA6AEGD.js","_app/immutable/chunks/index-client.D9m9Oq3e.js","_app/immutable/entry/app.C5mjb9xE.js","_app/immutable/chunks/runtime.CGA6AEGD.js","_app/immutable/chunks/render.DdB7lyfw.js","_app/immutable/chunks/disclose-version.CHam1Y-5.js","_app/immutable/chunks/index-client.D9m9Oq3e.js"],"stylesheets":[],"fonts":[],"uses_env_dynamic_public":false},
 		nodes: [
 			__memo(() => import('../output/server/nodes/0.js')),
 			__memo(() => import('../output/server/nodes/1.js')),
