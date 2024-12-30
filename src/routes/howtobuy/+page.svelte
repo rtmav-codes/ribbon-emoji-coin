@@ -11,7 +11,7 @@
             </li>
             <li class="mt-3">
                 <a
-                    href="https://www.aptoswallet.com/" 
+                    href="https://aptosfoundation.org/ecosystem/projects/wallets" 
                     target="_blank"
                     class="text-[#f35087]"
                 >
