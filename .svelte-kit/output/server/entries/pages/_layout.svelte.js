@@ -20,10 +20,10 @@ function Footer($$payload) {
 }
 function _layout($$payload, $$props) {
   const each_array = ensure_array_like(Array(10));
-  $$payload.out += `<div class="ribbon-container svelte-1kif5lx"><!--[-->`;
+  $$payload.out += `<div class="ribbon-container svelte-11yeaqc"><!--[-->`;
   for (let i = 0, $$length = each_array.length; i < $$length; i++) {
     each_array[i];
-    $$payload.out += `<div class="ribbon svelte-1kif5lx"${attr("style", `--delay: ${stringify(i * 0.5)}s; --left: ${stringify(Math.random() * 100)}%`)}></div>`;
+    $$payload.out += `<div class="ribbon svelte-11yeaqc"${attr("style", `animation-delay: ${stringify(i * 0.5)}s; left: ${stringify(Math.random() * 100)}%`)}></div>`;
   }
   $$payload.out += `<!--]--></div> `;
   Nav($$payload);

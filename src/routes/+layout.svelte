@@ -9,8 +9,8 @@
 	{#each Array(10) as _, i}
 		<div 
 			class="ribbon" 
-			style="--delay: {i * 0.5}s; --left: {Math.random() * 100}%"
-		/>
+			style="animation-delay: {i * 0.5}s; left: {Math.random() * 100}%"
+		></div>
 	{/each}
 
 </div>
@@ -35,16 +35,12 @@
 	.ribbon {
 		position: absolute;
 		top: -20px;
-		left: var(--left);
-		width: 36px;
-		height: 36px;
-		background-image: url('/ribbon.png');
-		background-size: cover;
-		background-position: center;
+		width: 8px;
+		height: 20px;
+		background: linear-gradient(45deg, #ff6b6b, #ff8787);
 		opacity: 0.6;
 		border-radius: 4px;
 		animation: fall 10s linear infinite;
-		animation-delay: var(--delay);
 	}
 
 	@keyframes fall {
