@@ -29,6 +29,9 @@
     "imports": [
       "_equality.js",
       "_index.js"
+    ],
+    "dynamicImports": [
+      "src/hooks.server.js"
     ]
   },
   "node_modules/.pnpm/@sveltejs+kit@2.15.1_@sveltejs+vite-plugin-svelte@5.0.3_svelte@5.16.0_vite@6.0.6_jiti@1.21.7__kwobio2r2zj5ivj2degmso4pwu/node_modules/@sveltejs/kit/src/runtime/components/svelte-5/error.svelte": {
@@ -52,6 +55,12 @@
       "_exports.js"
     ]
   },
+  "src/hooks.server.js": {
+    "file": "chunks/hooks.server.js",
+    "name": "hooks.server",
+    "src": "src/hooks.server.js",
+    "isDynamicEntry": true
+  },
   "src/routes/+layout.svelte": {
     "file": "entries/pages/_layout.svelte.js",
     "name": "entries/pages/_layout.svelte",
@@ -61,7 +70,7 @@
       "_index.js"
     ],
     "css": [
-      "_app/immutable/assets/_layout.CjwzXxAs.css"
+      "_app/immutable/assets/_layout.D-ubCiJd.css"
     ]
   },
   "src/routes/+page.svelte": {
