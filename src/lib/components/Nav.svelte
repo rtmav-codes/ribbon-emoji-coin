@@ -10,7 +10,7 @@
             <li>
                 <a
                     href="/home"
-                    class="text-lg font-bold text-[#f35087] text-white"
+                    class="text-lg font-bold text-[#f35087]"
                     >
                     🎀 Home
                 </a>
@@ -18,7 +18,7 @@
             <li>
                 <a
                     href="/howtobuy"
-                    class="text-lg font-bold text-[#f35087] text-white"
+                    class="text-lg font-bold text-[#f35087]"
                     >
                     🎀 How to Buy
                 </a>
