@@ -1,4 +1,4 @@
-<div class="lg:h-screen h-auto w-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-300 via-pink-300 to-pink-100 text-white flex flex-col items-center justify-center p-10">
+<div class="lg:h-screen h-auto w-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-300 via-pink-300 to-pink-100 text-white flex flex-col items-center justify-center p-10 pb-36">
     <h1 class="lg:text-7xl text-5xl lg:mt-20 mt-10">🎀</h1>
     <h2 class="lg:text-3xl text-xl font-bold text-center mt-2 text-[#f35087]">How to Buy</h2>
     <div class="flex flex-col justify-center items-start mt-20 lg:ml-0 ml-5">
