@@ -11,13 +11,13 @@ const Footer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 const app = "";
 const _layout_svelte_svelte_type_style_lang = "";
 const css = {
-  code: ".ribbon-container.svelte-11yeaqc{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:50}.ribbon.svelte-11yeaqc{position:absolute;top:-20px;width:8px;height:20px;background:linear-gradient(45deg, #ff6b6b, #ff8787);opacity:0.6;border-radius:4px;animation:svelte-11yeaqc-fall 10s linear infinite}@keyframes svelte-11yeaqc-fall{0%{transform:translateY(-20px) rotate(0deg)}100%{transform:translateY(100vh) rotate(720deg)}}",
+  code: ".ribbon-container.svelte-1tehlg{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:50}.ribbon.svelte-1tehlg{position:absolute;top:-20px;width:36px;height:36px;background-image:url('/ribbon.png');background-size:cover;background-position:center;opacity:0.6;border-radius:4px;animation:svelte-1tehlg-fall 10s linear infinite}@keyframes svelte-1tehlg-fall{0%{transform:translateY(-20px) rotate(0deg)}100%{transform:translateY(100vh) rotate(720deg)}}",
   map: null
 };
 const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css);
-  return `<div class="ribbon-container svelte-11yeaqc">${each(Array(10), (_, i) => {
-    return `<div class="ribbon svelte-11yeaqc" style="${"animation-delay: " + escape(i * 0.5, true) + "s; left: " + escape(Math.random() * 100, true) + "%"}"></div>`;
+  return `<div class="ribbon-container svelte-1tehlg">${each(Array(10), (_, i) => {
+    return `<div class="ribbon svelte-1tehlg" style="${"animation-delay: " + escape(i * 0.5, true) + "s; left: " + escape(Math.random() * 100, true) + "%"}"></div>`;
   })}</div> ${validate_component(Nav, "Nav").$$render($$result, {}, {}, {})} ${slots.default ? slots.default({}) : ``} ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}`;
 });
 export {

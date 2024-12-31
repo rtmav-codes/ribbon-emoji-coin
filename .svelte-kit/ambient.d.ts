@@ -67,6 +67,7 @@ declare module '$env/static/private' {
 	export const _CE_CONDA: string;
 	export const npm_config_frozen_lockfile: string;
 	export const PATH: string;
+	export const npm_package_scripts_postinstall: string;
 	export const GSETTINGS_SCHEMA_DIR: string;
 	export const __CFBundleIdentifier: string;
 	export const CONDA_PREFIX: string;
@@ -191,6 +192,7 @@ declare module '$env/dynamic/private' {
 		_CE_CONDA: string;
 		npm_config_frozen_lockfile: string;
 		PATH: string;
+		npm_package_scripts_postinstall: string;
 		GSETTINGS_SCHEMA_DIR: string;
 		__CFBundleIdentifier: string;
 		CONDA_PREFIX: string;
