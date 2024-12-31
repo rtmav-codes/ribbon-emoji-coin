@@ -35,9 +35,11 @@
 	.ribbon {
 		position: absolute;
 		top: -20px;
-		width: 8px;
-		height: 20px;
-		background: linear-gradient(45deg, #ff6b6b, #ff8787);
+		width: 36px;
+		height: 36px;
+		background-image: url('/ribbon.png');
+		background-size: cover;
+		background-position: center;
 		opacity: 0.6;
 		border-radius: 4px;
 		animation: fall 10s linear infinite;

@@ -29,5 +29,12 @@
             </button>
         </div>
     </div>
-    
-  </footer>
+</footer>
+
+<script lang="ts">
+    import { onMount } from 'svelte';
+
+    onMount(() => {
+        console.log('Hello World');
+    }); 
+</script>

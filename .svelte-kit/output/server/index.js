@@ -1,5 +1,7 @@
-import { b as base, a as assets, o as override, r as reset, p as public_env, s as safe_public_env, B as BROWSER, c as read_implementation, d as options, e as set_private_env, f as prerendering, g as set_public_env, h as get_hooks, i as set_safe_public_env, j as set_read_implementation } from "./chunks/internal.js";
-import { m as make_trackable, d as disable_search, w as writable, r as readable, n as normalize_path, a as add_data_suffix, b as resolve, c as decode_pathname, h as has_data_suffix, s as strip_data_suffix, e as decode_params, v as validate_layout_server_exports, f as validate_layout_exports, g as validate_page_server_exports, i as validate_page_exports, j as validate_server_exports } from "./chunks/exports.js";
+import { b as base, a as assets, o as override, r as reset, p as public_env, s as safe_public_env, c as read_implementation, d as options, e as set_private_env, f as prerendering, g as set_public_env, h as get_hooks, i as set_safe_public_env, j as set_read_implementation } from "./chunks/internal.js";
+import { m as make_trackable, d as disable_search, n as normalize_path, a as add_data_suffix, r as resolve, b as decode_pathname, h as has_data_suffix, s as strip_data_suffix, c as decode_params, v as validate_layout_server_exports, e as validate_layout_exports, f as validate_page_server_exports, g as validate_page_exports, i as validate_server_exports } from "./chunks/exports.js";
+import { n as noop, s as safe_not_equal } from "./chunks/ssr.js";
+const BROWSER = false;
 const SVELTE_KIT_ASSETS = "/_svelte_kit_assets";
 const ENDPOINT_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"];
 const PAGE_METHODS = ["GET", "POST", "HEAD"];
@@ -196,7 +198,8 @@ function method_not_allowed(mod, method) {
 }
 function allowed_methods(mod) {
   const allowed = ENDPOINT_METHODS.filter((method) => method in mod);
-  if ("GET" in mod || "HEAD" in mod) allowed.push("HEAD");
+  if ("GET" in mod || "HEAD" in mod)
+    allowed.push("HEAD");
   return allowed;
 }
 function static_error_page(options2, status, message) {
@@ -256,9 +259,12 @@ function stringify_uses(node) {
   if (node.uses && node.uses.params.size > 0) {
     uses.push(`"params":${JSON.stringify(Array.from(node.uses.params))}`);
   }
-  if (node.uses?.parent) uses.push('"parent":1');
-  if (node.uses?.route) uses.push('"route":1');
-  if (node.uses?.url) uses.push('"url":1');
+  if (node.uses?.parent)
+    uses.push('"parent":1');
+  if (node.uses?.route)
+    uses.push('"route":1');
+  if (node.uses?.url)
+    uses.push('"url":1');
   return `"uses":{${uses.join(",")}}`;
 }
 async function render_endpoint(event, mod, state) {
@@ -318,7 +324,8 @@ function is_endpoint_request(event) {
   if (ENDPOINT_METHODS.includes(method) && !PAGE_METHODS.includes(method)) {
     return true;
   }
-  if (method === "POST" && headers2.get("x-sveltekit-action") === "true") return false;
+  if (method === "POST" && headers2.get("x-sveltekit-action") === "true")
+    return false;
   const accept = event.request.headers.get("accept") ?? "*/*";
   return negotiate(accept, ["*", "text/html"]) !== "text/html";
 }
@@ -652,12 +659,17 @@ function safe_prop(key2) {
   return /^[_$a-zA-Z][_$a-zA-Z0-9]*$/.test(key2) ? `.${key2}` : `[${escape_unsafe_chars(JSON.stringify(key2))}]`;
 }
 function stringify_primitive$1(thing) {
-  if (typeof thing === "string") return stringify_string(thing);
-  if (thing === void 0) return "void 0";
-  if (thing === 0 && 1 / thing < 0) return "-0";
+  if (typeof thing === "string")
+    return stringify_string(thing);
+  if (thing === void 0)
+    return "void 0";
+  if (thing === 0 && 1 / thing < 0)
+    return "-0";
   const str = String(thing);
-  if (typeof thing === "number") return str.replace(/^(-)?0\./, "$1.");
-  if (typeof thing === "bigint") return thing + "n";
+  if (typeof thing === "number")
+    return str.replace(/^(-)?0\./, "$1.");
+  if (typeof thing === "bigint")
+    return thing + "n";
   return str;
 }
 function encode64(arraybuffer) {
@@ -714,12 +726,18 @@ function stringify(value, reducers) {
     if (typeof thing === "function") {
       throw new DevalueError(`Cannot stringify a function`, keys);
     }
-    if (indexes.has(thing)) return indexes.get(thing);
-    if (thing === void 0) return UNDEFINED;
-    if (Number.isNaN(thing)) return NAN;
-    if (thing === Infinity) return POSITIVE_INFINITY;
-    if (thing === -Infinity) return NEGATIVE_INFINITY;
-    if (thing === 0 && 1 / thing < 0) return NEGATIVE_ZERO;
+    if (indexes.has(thing))
+      return indexes.get(thing);
+    if (thing === void 0)
+      return UNDEFINED;
+    if (Number.isNaN(thing))
+      return NAN;
+    if (thing === Infinity)
+      return POSITIVE_INFINITY;
+    if (thing === -Infinity)
+      return NEGATIVE_INFINITY;
+    if (thing === 0 && 1 / thing < 0)
+      return NEGATIVE_ZERO;
     const index2 = p++;
     indexes.set(thing, index2);
     for (const { key: key2, fn } of custom) {
@@ -754,7 +772,8 @@ function stringify(value, reducers) {
         case "Array":
           str = "[";
           for (let i = 0; i < thing.length; i += 1) {
-            if (i > 0) str += ",";
+            if (i > 0)
+              str += ",";
             if (i in thing) {
               keys.push(`[${i}]`);
               str += flatten(thing[i]);
@@ -830,7 +849,8 @@ function stringify(value, reducers) {
             str = "{";
             let started = false;
             for (const key2 in thing) {
-              if (started) str += ",";
+              if (started)
+                str += ",";
               started = true;
               keys.push(stringify_key(key2));
               str += `${stringify_string(key2)}:${flatten(thing[key2])}`;
@@ -844,16 +864,22 @@ function stringify(value, reducers) {
     return index2;
   }
   const index = flatten(value);
-  if (index < 0) return `${index}`;
+  if (index < 0)
+    return `${index}`;
   return `[${stringified.join(",")}]`;
 }
 function stringify_primitive(thing) {
   const type = typeof thing;
-  if (type === "string") return stringify_string(thing);
-  if (thing instanceof String) return stringify_string(thing.toString());
-  if (thing === void 0) return UNDEFINED.toString();
-  if (thing === 0 && 1 / thing < 0) return NEGATIVE_ZERO.toString();
-  if (type === "bigint") return `["BigInt","${thing}"]`;
+  if (type === "string")
+    return stringify_string(thing);
+  if (thing instanceof String)
+    return stringify_string(thing.toString());
+  if (thing === void 0)
+    return UNDEFINED.toString();
+  if (thing === 0 && 1 / thing < 0)
+    return NEGATIVE_ZERO.toString();
+  if (type === "bigint")
+    return `["BigInt","${thing}"]`;
   return String(thing);
 }
 function is_action_json_request(event) {
@@ -889,7 +915,8 @@ async function handle_action_json_request(event, options2, server) {
   check_named_default_separate(actions);
   try {
     const data = await call_action(event, actions);
-    if (false) ;
+    if (false)
+      ;
     if (data instanceof ActionFailure) {
       return action_json({
         type: "failure",
@@ -969,7 +996,8 @@ async function handle_action_request(event, server) {
   check_named_default_separate(actions);
   try {
     const data = await call_action(event, actions);
-    if (false) ;
+    if (false)
+      ;
     if (data instanceof ActionFailure) {
       return {
         type: "failure",
@@ -1073,7 +1101,8 @@ function try_serialize(data, fn, route_id) {
     }
     if ("path" in error) {
       let message = `Data returned from action inside ${route_id} is not serializable: ${error.message}`;
-      if (error.path !== "") message += ` (data.${error.path})`;
+      if (error.path !== "")
+        message += ` (data.${error.path})`;
       throw new Error(message);
     }
     throw error;
@@ -1093,7 +1122,8 @@ function b64_encode(buffer) {
   );
 }
 async function load_server_data({ event, state, node, parent }) {
-  if (!node?.server) return null;
+  if (!node?.server)
+    return null;
   let is_tracking = true;
   const uses = {
     dependencies: /* @__PURE__ */ new Set(),
@@ -1328,16 +1358,65 @@ async function stream_to_string(stream) {
   }
   return result;
 }
+const subscriber_queue = [];
+function readable(value, start) {
+  return {
+    subscribe: writable(value, start).subscribe
+  };
+}
+function writable(value, start = noop) {
+  let stop;
+  const subscribers = /* @__PURE__ */ new Set();
+  function set(new_value) {
+    if (safe_not_equal(value, new_value)) {
+      value = new_value;
+      if (stop) {
+        const run_queue = !subscriber_queue.length;
+        for (const subscriber of subscribers) {
+          subscriber[1]();
+          subscriber_queue.push(subscriber, value);
+        }
+        if (run_queue) {
+          for (let i = 0; i < subscriber_queue.length; i += 2) {
+            subscriber_queue[i][0](subscriber_queue[i + 1]);
+          }
+          subscriber_queue.length = 0;
+        }
+      }
+    }
+  }
+  function update(fn) {
+    set(fn(value));
+  }
+  function subscribe(run, invalidate = noop) {
+    const subscriber = [run, invalidate];
+    subscribers.add(subscriber);
+    if (subscribers.size === 1) {
+      stop = start(set, update) || noop;
+    }
+    run(value);
+    return () => {
+      subscribers.delete(subscriber);
+      if (subscribers.size === 0 && stop) {
+        stop();
+        stop = null;
+      }
+    };
+  }
+  return { set, update, subscribe };
+}
 function hash(...values) {
   let hash2 = 5381;
   for (const value of values) {
     if (typeof value === "string") {
       let i = value.length;
-      while (i) hash2 = hash2 * 33 ^ value.charCodeAt(--i);
+      while (i)
+        hash2 = hash2 * 33 ^ value.charCodeAt(--i);
     } else if (ArrayBuffer.isView(value)) {
       const buffer = new Uint8Array(value.buffer, value.byteOffset, value.byteLength);
       let i = buffer.length;
-      while (i) hash2 = hash2 * 33 ^ buffer[--i];
+      while (i)
+        hash2 = hash2 * 33 ^ buffer[--i];
     } else {
       throw new TypeError("value must be a string or TypedArray");
     }
@@ -1359,9 +1438,12 @@ function serialize_data(fetched, filter, prerendering2 = false) {
     if (filter(key2, value)) {
       headers2[key2] = value;
     }
-    if (key2 === "cache-control") cache_control = value;
-    else if (key2 === "age") age = value;
-    else if (key2 === "vary" && value.trim() === "*") varyAny = true;
+    if (key2 === "cache-control")
+      cache_control = value;
+    else if (key2 === "age")
+      age = value;
+    else if (key2 === "vary" && value.trim() === "*")
+      varyAny = true;
   }
   const payload = {
     status: fetched.response.status,
@@ -1400,9 +1482,10 @@ function serialize_data(fetched, filter, prerendering2 = false) {
 const s = JSON.stringify;
 const encoder$2 = new TextEncoder();
 function sha256(data) {
-  if (!key[0]) precompute();
+  if (!key[0])
+    precompute();
   const out = init.slice(0);
-  const array2 = encode(data);
+  const array2 = encode$1(data);
   for (let i = 0; i < array2.length; i += 16) {
     const w = array2.subarray(i, i + 16);
     let tmp;
@@ -1483,7 +1566,7 @@ function reverse_endianness(bytes) {
     bytes[i + 3] = a;
   }
 }
-function encode(str) {
+function encode$1(str) {
   const encoded = encoder$2.encode(str);
   const length = encoded.length * 8;
   const size = 512 * Math.ceil((length + 65) / 512);
@@ -1601,7 +1684,8 @@ class BaseProvider {
   }
   /** @param {string} content */
   add_script(content) {
-    if (!this.#script_needs_csp) return;
+    if (!this.#script_needs_csp)
+      return;
     const source = this.#use_hashes ? `sha256-${sha256(content)}` : `nonce-${this.#nonce}`;
     if (this.#script_src_needs_csp) {
       this.#script_src.push(source);
@@ -1612,7 +1696,8 @@ class BaseProvider {
   }
   /** @param {string} content */
   add_style(content) {
-    if (!this.#style_needs_csp) return;
+    if (!this.#style_needs_csp)
+      return;
     const source = this.#use_hashes ? `sha256-${sha256(content)}` : `nonce-${this.#nonce}`;
     if (this.#style_src_needs_csp) {
       this.#style_src.push(source);
@@ -1675,7 +1760,8 @@ class BaseProvider {
         /** @type {string[] | true} */
         directives[key2]
       );
-      if (!value) continue;
+      if (!value)
+        continue;
       const directive = [key2];
       if (Array.isArray(value)) {
         value.forEach((value2) => {
@@ -1769,7 +1855,8 @@ function create_async_iterator() {
         return {
           next: async () => {
             const next = await deferred[0].promise;
-            if (!next.done) deferred.shift();
+            if (!next.done)
+              deferred.shift();
             return next;
           }
         };
@@ -1883,9 +1970,12 @@ async function render_response({
       }
     }
     for (const { node } of branch) {
-      for (const url of node.imports) modulepreloads.add(url);
-      for (const url of node.stylesheets) stylesheets.add(url);
-      for (const url of node.fonts) fonts.add(url);
+      for (const url of node.imports)
+        modulepreloads.add(url);
+      for (const url of node.stylesheets)
+        stylesheets.add(url);
+      for (const url of node.fonts)
+        fonts.add(url);
       if (node.inline_styles && !client.inline) {
         Object.entries(await node.inline_styles()).forEach(([k, v]) => inline_styles.set(k, v));
       }
@@ -1907,7 +1997,8 @@ async function render_response({
   const style = client.inline ? client.inline?.style : Array.from(inline_styles.values()).join("\n");
   if (style) {
     const attributes = [];
-    if (csp.style_needs_nonce) attributes.push(` nonce="${csp.nonce}"`);
+    if (csp.style_needs_nonce)
+      attributes.push(` nonce="${csp.nonce}"`);
     csp.add_style(style);
     head += `
 	<style${attributes.join("")}>${style}</style>`;
@@ -2178,7 +2269,8 @@ function get_data(event, options2, nodes, csp, global) {
           const nonce = csp.script_needs_nonce ? ` nonce="${csp.nonce}"` : "";
           push(`<script${nonce}>${global}.resolve(${str})<\/script>
 `);
-          if (count === 0) done();
+          if (count === 0)
+            done();
         }
       );
       return `${global}.defer(${id})`;
@@ -2193,7 +2285,8 @@ function get_data(event, options2, nodes, csp, global) {
   }
   try {
     const strings = nodes.map((node) => {
-      if (!node) return "null";
+      if (!node)
+        return "null";
       return `{"type":"data","data":${uneval(node.data, replacer)},${stringify_uses(node)}${node.slash ? `,"slash":${JSON.stringify(node.slash)}` : ""}}`;
     });
     return {
@@ -2308,7 +2401,8 @@ function once(fn) {
   let done = false;
   let result;
   return () => {
-    if (done) return result;
+    if (done)
+      return result;
     done = true;
     return result = fn();
   };
@@ -2484,7 +2578,8 @@ function get_data_json(event, options2, nodes) {
             count -= 1;
             push(`{"type":"chunk","id":${id},"${key2}":${str}}
 `);
-            if (count === 0) done();
+            if (count === 0)
+              done();
           }
         );
         return id;
@@ -2493,7 +2588,8 @@ function get_data_json(event, options2, nodes) {
   };
   try {
     const strings = nodes.map((node) => {
-      if (!node) return "null";
+      if (!node)
+        return "null";
       if (node.type === "error" || node.type === "skip") {
         return JSON.stringify(node);
       }
@@ -2569,7 +2665,8 @@ async function render_page(event, page, options2, manifest, state, resolve_opts)
     state.prerender_default = should_prerender;
     const fetched = [];
     if (get_option(nodes, "ssr") === false && !(state.prerendering && should_prerender_data)) {
-      if (BROWSER && action_result && !event.request.headers.has("x-sveltekit-action")) ;
+      if (BROWSER && action_result && !event.request.headers.has("x-sveltekit-action"))
+        ;
       return await render_response({
         branch: [],
         fetched,
@@ -2605,7 +2702,8 @@ async function render_page(event, page, options2, manifest, state, resolve_opts)
               const data = {};
               for (let j = 0; j < i; j += 1) {
                 const parent = await server_promises[j];
-                if (parent) Object.assign(data, parent.data);
+                if (parent)
+                  Object.assign(data, parent.data);
               }
               return data;
             }
@@ -2619,7 +2717,8 @@ async function render_page(event, page, options2, manifest, state, resolve_opts)
     });
     const csr = get_option(nodes, "csr") ?? true;
     const load_promises = nodes.map((node, i) => {
-      if (load_error) throw load_error;
+      if (load_error)
+        throw load_error;
       return Promise.resolve().then(async () => {
         try {
           return await load_data({
@@ -2645,10 +2744,12 @@ async function render_page(event, page, options2, manifest, state, resolve_opts)
         }
       });
     });
-    for (const p of server_promises) p.catch(() => {
-    });
-    for (const p of load_promises) p.catch(() => {
-    });
+    for (const p of server_promises)
+      p.catch(() => {
+      });
+    for (const p of load_promises)
+      p.catch(() => {
+      });
     for (let i = 0; i < nodes.length; i += 1) {
       const node = nodes[i];
       if (node) {
@@ -2681,7 +2782,8 @@ async function render_page(event, page, options2, manifest, state, resolve_opts)
               );
               const node2 = await manifest._.nodes[index]();
               let j = i;
-              while (!branch[j]) j -= 1;
+              while (!branch[j])
+                j -= 1;
               return await render_response({
                 event,
                 options: options2,
@@ -2764,7 +2866,8 @@ function exec(match, params, matchers) {
       buffered = 0;
     }
     if (value === void 0) {
-      if (param.rest) result[param.name] = "";
+      if (param.rest)
+        result[param.name] = "";
       continue;
     }
     if (!param.matcher || matchers[param.matcher](value)) {
@@ -2785,161 +2888,154 @@ function exec(match, params, matchers) {
     }
     return;
   }
-  if (buffered) return;
+  if (buffered)
+    return;
   return result;
 }
-var cookie = {};
 /*!
  * cookie
  * Copyright(c) 2012-2014 Roman Shtylman
  * Copyright(c) 2015 Douglas Christopher Wilson
  * MIT Licensed
  */
-var hasRequiredCookie;
-function requireCookie() {
-  if (hasRequiredCookie) return cookie;
-  hasRequiredCookie = 1;
-  cookie.parse = parse;
-  cookie.serialize = serialize;
-  var __toString = Object.prototype.toString;
-  var fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
-  function parse(str, options2) {
-    if (typeof str !== "string") {
-      throw new TypeError("argument str must be a string");
-    }
-    var obj = {};
-    var opt = options2 || {};
-    var dec = opt.decode || decode;
-    var index = 0;
-    while (index < str.length) {
-      var eqIdx = str.indexOf("=", index);
-      if (eqIdx === -1) {
-        break;
-      }
-      var endIdx = str.indexOf(";", index);
-      if (endIdx === -1) {
-        endIdx = str.length;
-      } else if (endIdx < eqIdx) {
-        index = str.lastIndexOf(";", eqIdx - 1) + 1;
-        continue;
-      }
-      var key2 = str.slice(index, eqIdx).trim();
-      if (void 0 === obj[key2]) {
-        var val = str.slice(eqIdx + 1, endIdx).trim();
-        if (val.charCodeAt(0) === 34) {
-          val = val.slice(1, -1);
-        }
-        obj[key2] = tryDecode(val, dec);
-      }
-      index = endIdx + 1;
-    }
-    return obj;
+var parse_1 = parse$1;
+var serialize_1 = serialize;
+var __toString = Object.prototype.toString;
+var fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
+function parse$1(str, options2) {
+  if (typeof str !== "string") {
+    throw new TypeError("argument str must be a string");
   }
-  function serialize(name, val, options2) {
-    var opt = options2 || {};
-    var enc = opt.encode || encode2;
-    if (typeof enc !== "function") {
-      throw new TypeError("option encode is invalid");
+  var obj = {};
+  var opt = options2 || {};
+  var dec = opt.decode || decode;
+  var index = 0;
+  while (index < str.length) {
+    var eqIdx = str.indexOf("=", index);
+    if (eqIdx === -1) {
+      break;
     }
-    if (!fieldContentRegExp.test(name)) {
-      throw new TypeError("argument name is invalid");
+    var endIdx = str.indexOf(";", index);
+    if (endIdx === -1) {
+      endIdx = str.length;
+    } else if (endIdx < eqIdx) {
+      index = str.lastIndexOf(";", eqIdx - 1) + 1;
+      continue;
     }
-    var value = enc(val);
-    if (value && !fieldContentRegExp.test(value)) {
-      throw new TypeError("argument val is invalid");
-    }
-    var str = name + "=" + value;
-    if (null != opt.maxAge) {
-      var maxAge = opt.maxAge - 0;
-      if (isNaN(maxAge) || !isFinite(maxAge)) {
-        throw new TypeError("option maxAge is invalid");
+    var key2 = str.slice(index, eqIdx).trim();
+    if (void 0 === obj[key2]) {
+      var val = str.slice(eqIdx + 1, endIdx).trim();
+      if (val.charCodeAt(0) === 34) {
+        val = val.slice(1, -1);
       }
-      str += "; Max-Age=" + Math.floor(maxAge);
+      obj[key2] = tryDecode(val, dec);
     }
-    if (opt.domain) {
-      if (!fieldContentRegExp.test(opt.domain)) {
-        throw new TypeError("option domain is invalid");
-      }
-      str += "; Domain=" + opt.domain;
+    index = endIdx + 1;
+  }
+  return obj;
+}
+function serialize(name, val, options2) {
+  var opt = options2 || {};
+  var enc = opt.encode || encode;
+  if (typeof enc !== "function") {
+    throw new TypeError("option encode is invalid");
+  }
+  if (!fieldContentRegExp.test(name)) {
+    throw new TypeError("argument name is invalid");
+  }
+  var value = enc(val);
+  if (value && !fieldContentRegExp.test(value)) {
+    throw new TypeError("argument val is invalid");
+  }
+  var str = name + "=" + value;
+  if (null != opt.maxAge) {
+    var maxAge = opt.maxAge - 0;
+    if (isNaN(maxAge) || !isFinite(maxAge)) {
+      throw new TypeError("option maxAge is invalid");
     }
-    if (opt.path) {
-      if (!fieldContentRegExp.test(opt.path)) {
-        throw new TypeError("option path is invalid");
-      }
-      str += "; Path=" + opt.path;
+    str += "; Max-Age=" + Math.floor(maxAge);
+  }
+  if (opt.domain) {
+    if (!fieldContentRegExp.test(opt.domain)) {
+      throw new TypeError("option domain is invalid");
     }
-    if (opt.expires) {
-      var expires = opt.expires;
-      if (!isDate(expires) || isNaN(expires.valueOf())) {
-        throw new TypeError("option expires is invalid");
-      }
-      str += "; Expires=" + expires.toUTCString();
+    str += "; Domain=" + opt.domain;
+  }
+  if (opt.path) {
+    if (!fieldContentRegExp.test(opt.path)) {
+      throw new TypeError("option path is invalid");
     }
-    if (opt.httpOnly) {
-      str += "; HttpOnly";
+    str += "; Path=" + opt.path;
+  }
+  if (opt.expires) {
+    var expires = opt.expires;
+    if (!isDate(expires) || isNaN(expires.valueOf())) {
+      throw new TypeError("option expires is invalid");
     }
-    if (opt.secure) {
-      str += "; Secure";
+    str += "; Expires=" + expires.toUTCString();
+  }
+  if (opt.httpOnly) {
+    str += "; HttpOnly";
+  }
+  if (opt.secure) {
+    str += "; Secure";
+  }
+  if (opt.partitioned) {
+    str += "; Partitioned";
+  }
+  if (opt.priority) {
+    var priority = typeof opt.priority === "string" ? opt.priority.toLowerCase() : opt.priority;
+    switch (priority) {
+      case "low":
+        str += "; Priority=Low";
+        break;
+      case "medium":
+        str += "; Priority=Medium";
+        break;
+      case "high":
+        str += "; Priority=High";
+        break;
+      default:
+        throw new TypeError("option priority is invalid");
     }
-    if (opt.partitioned) {
-      str += "; Partitioned";
+  }
+  if (opt.sameSite) {
+    var sameSite = typeof opt.sameSite === "string" ? opt.sameSite.toLowerCase() : opt.sameSite;
+    switch (sameSite) {
+      case true:
+        str += "; SameSite=Strict";
+        break;
+      case "lax":
+        str += "; SameSite=Lax";
+        break;
+      case "strict":
+        str += "; SameSite=Strict";
+        break;
+      case "none":
+        str += "; SameSite=None";
+        break;
+      default:
+        throw new TypeError("option sameSite is invalid");
     }
-    if (opt.priority) {
-      var priority = typeof opt.priority === "string" ? opt.priority.toLowerCase() : opt.priority;
-      switch (priority) {
-        case "low":
-          str += "; Priority=Low";
-          break;
-        case "medium":
-          str += "; Priority=Medium";
-          break;
-        case "high":
-          str += "; Priority=High";
-          break;
-        default:
-          throw new TypeError("option priority is invalid");
-      }
-    }
-    if (opt.sameSite) {
-      var sameSite = typeof opt.sameSite === "string" ? opt.sameSite.toLowerCase() : opt.sameSite;
-      switch (sameSite) {
-        case true:
-          str += "; SameSite=Strict";
-          break;
-        case "lax":
-          str += "; SameSite=Lax";
-          break;
-        case "strict":
-          str += "; SameSite=Strict";
-          break;
-        case "none":
-          str += "; SameSite=None";
-          break;
-        default:
-          throw new TypeError("option sameSite is invalid");
-      }
-    }
+  }
+  return str;
+}
+function decode(str) {
+  return str.indexOf("%") !== -1 ? decodeURIComponent(str) : str;
+}
+function encode(val) {
+  return encodeURIComponent(val);
+}
+function isDate(val) {
+  return __toString.call(val) === "[object Date]" || val instanceof Date;
+}
+function tryDecode(str, decode2) {
+  try {
+    return decode2(str);
+  } catch (e) {
     return str;
   }
-  function decode(str) {
-    return str.indexOf("%") !== -1 ? decodeURIComponent(str) : str;
-  }
-  function encode2(val) {
-    return encodeURIComponent(val);
-  }
-  function isDate(val) {
-    return __toString.call(val) === "[object Date]" || val instanceof Date;
-  }
-  function tryDecode(str, decode2) {
-    try {
-      return decode2(str);
-    } catch (e) {
-      return str;
-    }
-  }
-  return cookie;
 }
-var cookieExports = requireCookie();
 const INVALID_COOKIE_CHARACTER_REGEX = /[\x00-\x1F\x7F()<>@,;:"/[\]?={} \t]/;
 function validate_options(options2) {
   if (options2?.path === void 0) {
@@ -2948,7 +3044,7 @@ function validate_options(options2) {
 }
 function get_cookies(request, url, trailing_slash) {
   const header = request.headers.get("cookie") ?? "";
-  const initial_cookies = cookieExports.parse(header, { decode: (value) => value });
+  const initial_cookies = parse_1(header, { decode: (value) => value });
   const normalized_url = normalize_path(url.pathname, trailing_slash);
   const new_cookies = {};
   const defaults = {
@@ -2970,15 +3066,15 @@ function get_cookies(request, url, trailing_slash) {
       if (c && domain_matches(url.hostname, c.options.domain) && path_matches(url.pathname, c.options.path)) {
         return c.value;
       }
-      const req_cookies = cookieExports.parse(header, { decode: opts?.decode });
-      const cookie2 = req_cookies[name];
-      return cookie2;
+      const req_cookies = parse_1(header, { decode: opts?.decode });
+      const cookie = req_cookies[name];
+      return cookie;
     },
     /**
      * @param {import('cookie').CookieParseOptions} opts
      */
     getAll(opts) {
-      const cookies2 = cookieExports.parse(header, { decode: opts?.decode });
+      const cookies2 = parse_1(header, { decode: opts?.decode });
       for (const c of Object.values(new_cookies)) {
         if (domain_matches(url.hostname, c.options.domain) && path_matches(url.pathname, c.options.path)) {
           cookies2[c.name] = c.value;
@@ -3022,7 +3118,7 @@ function get_cookies(request, url, trailing_slash) {
       if (!options2.domain || options2.domain === url.hostname) {
         path = resolve(normalized_url, path);
       }
-      return cookieExports.serialize(name, value, { ...defaults, ...options2, path });
+      return serialize_1(name, value, { ...defaults, ...options2, path });
     }
   };
   function get_cookie_header(destination, header2) {
@@ -3031,14 +3127,16 @@ function get_cookies(request, url, trailing_slash) {
       ...initial_cookies
     };
     for (const key2 in new_cookies) {
-      const cookie2 = new_cookies[key2];
-      if (!domain_matches(destination.hostname, cookie2.options.domain)) continue;
-      if (!path_matches(destination.pathname, cookie2.options.path)) continue;
-      const encoder2 = cookie2.options.encode || encodeURIComponent;
-      combined_cookies[cookie2.name] = encoder2(cookie2.value);
+      const cookie = new_cookies[key2];
+      if (!domain_matches(destination.hostname, cookie.options.domain))
+        continue;
+      if (!path_matches(destination.pathname, cookie.options.path))
+        continue;
+      const encoder2 = cookie.options.encode || encodeURIComponent;
+      combined_cookies[cookie.name] = encoder2(cookie.value);
     }
     if (header2) {
-      const parsed = cookieExports.parse(header2, { decode: (value) => value });
+      const parsed = parse_1(header2, { decode: (value) => value });
       for (const name in parsed) {
         combined_cookies[name] = parsed[name];
       }
@@ -3055,197 +3153,194 @@ function get_cookies(request, url, trailing_slash) {
   return { cookies, new_cookies, get_cookie_header, set_internal };
 }
 function domain_matches(hostname, constraint) {
-  if (!constraint) return true;
+  if (!constraint)
+    return true;
   const normalized = constraint[0] === "." ? constraint.slice(1) : constraint;
-  if (hostname === normalized) return true;
+  if (hostname === normalized)
+    return true;
   return hostname.endsWith("." + normalized);
 }
 function path_matches(path, constraint) {
-  if (!constraint) return true;
+  if (!constraint)
+    return true;
   const normalized = constraint.endsWith("/") ? constraint.slice(0, -1) : constraint;
-  if (path === normalized) return true;
+  if (path === normalized)
+    return true;
   return path.startsWith(normalized + "/");
 }
 function add_cookies_to_headers(headers2, cookies) {
   for (const new_cookie of cookies) {
     const { name, value, options: options2 } = new_cookie;
-    headers2.append("set-cookie", cookieExports.serialize(name, value, options2));
+    headers2.append("set-cookie", serialize_1(name, value, options2));
     if (options2.path.endsWith(".html")) {
       const path = add_data_suffix(options2.path);
-      headers2.append("set-cookie", cookieExports.serialize(name, value, { ...options2, path }));
+      headers2.append("set-cookie", serialize_1(name, value, { ...options2, path }));
     }
   }
 }
 var setCookie = { exports: {} };
-var hasRequiredSetCookie;
-function requireSetCookie() {
-  if (hasRequiredSetCookie) return setCookie.exports;
-  hasRequiredSetCookie = 1;
-  var defaultParseOptions = {
-    decodeValues: true,
-    map: false,
-    silent: false
+var defaultParseOptions = {
+  decodeValues: true,
+  map: false,
+  silent: false
+};
+function isNonEmptyString(str) {
+  return typeof str === "string" && !!str.trim();
+}
+function parseString(setCookieValue, options2) {
+  var parts = setCookieValue.split(";").filter(isNonEmptyString);
+  var nameValuePairStr = parts.shift();
+  var parsed = parseNameValuePair(nameValuePairStr);
+  var name = parsed.name;
+  var value = parsed.value;
+  options2 = options2 ? Object.assign({}, defaultParseOptions, options2) : defaultParseOptions;
+  try {
+    value = options2.decodeValues ? decodeURIComponent(value) : value;
+  } catch (e) {
+    console.error(
+      "set-cookie-parser encountered an error while decoding a cookie with value '" + value + "'. Set options.decodeValues to false to disable this feature.",
+      e
+    );
+  }
+  var cookie = {
+    name,
+    value
   };
-  function isNonEmptyString(str) {
-    return typeof str === "string" && !!str.trim();
-  }
-  function parseString(setCookieValue, options2) {
-    var parts = setCookieValue.split(";").filter(isNonEmptyString);
-    var nameValuePairStr = parts.shift();
-    var parsed = parseNameValuePair(nameValuePairStr);
-    var name = parsed.name;
-    var value = parsed.value;
-    options2 = options2 ? Object.assign({}, defaultParseOptions, options2) : defaultParseOptions;
-    try {
-      value = options2.decodeValues ? decodeURIComponent(value) : value;
-    } catch (e) {
-      console.error(
-        "set-cookie-parser encountered an error while decoding a cookie with value '" + value + "'. Set options.decodeValues to false to disable this feature.",
-        e
-      );
-    }
-    var cookie2 = {
-      name,
-      value
-    };
-    parts.forEach(function(part) {
-      var sides = part.split("=");
-      var key2 = sides.shift().trimLeft().toLowerCase();
-      var value2 = sides.join("=");
-      if (key2 === "expires") {
-        cookie2.expires = new Date(value2);
-      } else if (key2 === "max-age") {
-        cookie2.maxAge = parseInt(value2, 10);
-      } else if (key2 === "secure") {
-        cookie2.secure = true;
-      } else if (key2 === "httponly") {
-        cookie2.httpOnly = true;
-      } else if (key2 === "samesite") {
-        cookie2.sameSite = value2;
-      } else if (key2 === "partitioned") {
-        cookie2.partitioned = true;
-      } else {
-        cookie2[key2] = value2;
-      }
-    });
-    return cookie2;
-  }
-  function parseNameValuePair(nameValuePairStr) {
-    var name = "";
-    var value = "";
-    var nameValueArr = nameValuePairStr.split("=");
-    if (nameValueArr.length > 1) {
-      name = nameValueArr.shift();
-      value = nameValueArr.join("=");
+  parts.forEach(function(part) {
+    var sides = part.split("=");
+    var key2 = sides.shift().trimLeft().toLowerCase();
+    var value2 = sides.join("=");
+    if (key2 === "expires") {
+      cookie.expires = new Date(value2);
+    } else if (key2 === "max-age") {
+      cookie.maxAge = parseInt(value2, 10);
+    } else if (key2 === "secure") {
+      cookie.secure = true;
+    } else if (key2 === "httponly") {
+      cookie.httpOnly = true;
+    } else if (key2 === "samesite") {
+      cookie.sameSite = value2;
+    } else if (key2 === "partitioned") {
+      cookie.partitioned = true;
     } else {
-      value = nameValuePairStr;
+      cookie[key2] = value2;
     }
-    return { name, value };
+  });
+  return cookie;
+}
+function parseNameValuePair(nameValuePairStr) {
+  var name = "";
+  var value = "";
+  var nameValueArr = nameValuePairStr.split("=");
+  if (nameValueArr.length > 1) {
+    name = nameValueArr.shift();
+    value = nameValueArr.join("=");
+  } else {
+    value = nameValuePairStr;
   }
-  function parse(input, options2) {
-    options2 = options2 ? Object.assign({}, defaultParseOptions, options2) : defaultParseOptions;
-    if (!input) {
-      if (!options2.map) {
-        return [];
-      } else {
-        return {};
-      }
-    }
-    if (input.headers) {
-      if (typeof input.headers.getSetCookie === "function") {
-        input = input.headers.getSetCookie();
-      } else if (input.headers["set-cookie"]) {
-        input = input.headers["set-cookie"];
-      } else {
-        var sch = input.headers[Object.keys(input.headers).find(function(key2) {
-          return key2.toLowerCase() === "set-cookie";
-        })];
-        if (!sch && input.headers.cookie && !options2.silent) {
-          console.warn(
-            "Warning: set-cookie-parser appears to have been called on a request object. It is designed to parse Set-Cookie headers from responses, not Cookie headers from requests. Set the option {silent: true} to suppress this warning."
-          );
-        }
-        input = sch;
-      }
-    }
-    if (!Array.isArray(input)) {
-      input = [input];
-    }
+  return { name, value };
+}
+function parse(input, options2) {
+  options2 = options2 ? Object.assign({}, defaultParseOptions, options2) : defaultParseOptions;
+  if (!input) {
     if (!options2.map) {
-      return input.filter(isNonEmptyString).map(function(str) {
-        return parseString(str, options2);
-      });
+      return [];
     } else {
-      var cookies = {};
-      return input.filter(isNonEmptyString).reduce(function(cookies2, str) {
-        var cookie2 = parseString(str, options2);
-        cookies2[cookie2.name] = cookie2;
-        return cookies2;
-      }, cookies);
+      return {};
     }
   }
-  function splitCookiesString(cookiesString) {
-    if (Array.isArray(cookiesString)) {
-      return cookiesString;
+  if (input.headers) {
+    if (typeof input.headers.getSetCookie === "function") {
+      input = input.headers.getSetCookie();
+    } else if (input.headers["set-cookie"]) {
+      input = input.headers["set-cookie"];
+    } else {
+      var sch = input.headers[Object.keys(input.headers).find(function(key2) {
+        return key2.toLowerCase() === "set-cookie";
+      })];
+      if (!sch && input.headers.cookie && !options2.silent) {
+        console.warn(
+          "Warning: set-cookie-parser appears to have been called on a request object. It is designed to parse Set-Cookie headers from responses, not Cookie headers from requests. Set the option {silent: true} to suppress this warning."
+        );
+      }
+      input = sch;
     }
-    if (typeof cookiesString !== "string") {
-      return [];
+  }
+  if (!Array.isArray(input)) {
+    input = [input];
+  }
+  if (!options2.map) {
+    return input.filter(isNonEmptyString).map(function(str) {
+      return parseString(str, options2);
+    });
+  } else {
+    var cookies = {};
+    return input.filter(isNonEmptyString).reduce(function(cookies2, str) {
+      var cookie = parseString(str, options2);
+      cookies2[cookie.name] = cookie;
+      return cookies2;
+    }, cookies);
+  }
+}
+function splitCookiesString(cookiesString) {
+  if (Array.isArray(cookiesString)) {
+    return cookiesString;
+  }
+  if (typeof cookiesString !== "string") {
+    return [];
+  }
+  var cookiesStrings = [];
+  var pos = 0;
+  var start;
+  var ch;
+  var lastComma;
+  var nextStart;
+  var cookiesSeparatorFound;
+  function skipWhitespace() {
+    while (pos < cookiesString.length && /\s/.test(cookiesString.charAt(pos))) {
+      pos += 1;
     }
-    var cookiesStrings = [];
-    var pos = 0;
-    var start;
-    var ch;
-    var lastComma;
-    var nextStart;
-    var cookiesSeparatorFound;
-    function skipWhitespace() {
-      while (pos < cookiesString.length && /\s/.test(cookiesString.charAt(pos))) {
+    return pos < cookiesString.length;
+  }
+  function notSpecialChar() {
+    ch = cookiesString.charAt(pos);
+    return ch !== "=" && ch !== ";" && ch !== ",";
+  }
+  while (pos < cookiesString.length) {
+    start = pos;
+    cookiesSeparatorFound = false;
+    while (skipWhitespace()) {
+      ch = cookiesString.charAt(pos);
+      if (ch === ",") {
+        lastComma = pos;
+        pos += 1;
+        skipWhitespace();
+        nextStart = pos;
+        while (pos < cookiesString.length && notSpecialChar()) {
+          pos += 1;
+        }
+        if (pos < cookiesString.length && cookiesString.charAt(pos) === "=") {
+          cookiesSeparatorFound = true;
+          pos = nextStart;
+          cookiesStrings.push(cookiesString.substring(start, lastComma));
+          start = pos;
+        } else {
+          pos = lastComma + 1;
+        }
+      } else {
         pos += 1;
       }
-      return pos < cookiesString.length;
     }
-    function notSpecialChar() {
-      ch = cookiesString.charAt(pos);
-      return ch !== "=" && ch !== ";" && ch !== ",";
+    if (!cookiesSeparatorFound || pos >= cookiesString.length) {
+      cookiesStrings.push(cookiesString.substring(start, cookiesString.length));
     }
-    while (pos < cookiesString.length) {
-      start = pos;
-      cookiesSeparatorFound = false;
-      while (skipWhitespace()) {
-        ch = cookiesString.charAt(pos);
-        if (ch === ",") {
-          lastComma = pos;
-          pos += 1;
-          skipWhitespace();
-          nextStart = pos;
-          while (pos < cookiesString.length && notSpecialChar()) {
-            pos += 1;
-          }
-          if (pos < cookiesString.length && cookiesString.charAt(pos) === "=") {
-            cookiesSeparatorFound = true;
-            pos = nextStart;
-            cookiesStrings.push(cookiesString.substring(start, lastComma));
-            start = pos;
-          } else {
-            pos = lastComma + 1;
-          }
-        } else {
-          pos += 1;
-        }
-      }
-      if (!cookiesSeparatorFound || pos >= cookiesString.length) {
-        cookiesStrings.push(cookiesString.substring(start, cookiesString.length));
-      }
-    }
-    return cookiesStrings;
   }
-  setCookie.exports = parse;
-  setCookie.exports.parse = parse;
-  setCookie.exports.parseString = parseString;
-  setCookie.exports.splitCookiesString = splitCookiesString;
-  return setCookie.exports;
+  return cookiesStrings;
 }
-var setCookieExports = /* @__PURE__ */ requireSetCookie();
+setCookie.exports = parse;
+setCookie.exports.parse = parse;
+var parseString_1 = setCookie.exports.parseString = parseString;
+var splitCookiesString_1 = setCookie.exports.splitCookiesString = splitCookiesString;
 function create_fetch({ event, options: options2, manifest, state, get_cookie_header, set_internal }) {
   const server_fetch = async (info, init2) => {
     const original_request = normalize_fetch_input(info, init2, event.url);
@@ -3269,8 +3364,9 @@ function create_fetch({ event, options: options2, manifest, state, get_cookie_he
         }
         if (url.origin !== event.url.origin) {
           if (`.${url.hostname}`.endsWith(`.${event.url.hostname}`) && credentials !== "omit") {
-            const cookie2 = get_cookie_header(url, request.headers.get("cookie"));
-            if (cookie2) request.headers.set("cookie", cookie2);
+            const cookie = get_cookie_header(url, request.headers.get("cookie"));
+            if (cookie)
+              request.headers.set("cookie", cookie);
           }
           return fetch(request);
         }
@@ -3300,9 +3396,9 @@ function create_fetch({ event, options: options2, manifest, state, get_cookie_he
           return await fetch(request);
         }
         if (credentials !== "omit") {
-          const cookie2 = get_cookie_header(url, request.headers.get("cookie"));
-          if (cookie2) {
-            request.headers.set("cookie", cookie2);
+          const cookie = get_cookie_header(url, request.headers.get("cookie"));
+          if (cookie) {
+            request.headers.set("cookie", cookie);
           }
           const authorization = event.request.headers.get("authorization");
           if (authorization && !request.headers.has("authorization")) {
@@ -3325,8 +3421,8 @@ function create_fetch({ event, options: options2, manifest, state, get_cookie_he
         });
         const set_cookie = response.headers.get("set-cookie");
         if (set_cookie) {
-          for (const str of setCookieExports.splitCookiesString(set_cookie)) {
-            const { name, value, ...options3 } = setCookieExports.parseString(str, {
+          for (const str of splitCookiesString_1(set_cookie)) {
+            const { name, value, ...options3 } = parseString_1(str, {
               decodeValues: false
             });
             const path = options3.path ?? (url.pathname.split("/").slice(0, -1).join("/") || "/");
@@ -3373,7 +3469,8 @@ function get_public_env(request) {
 function get_page_config(nodes) {
   let current = {};
   for (const node of nodes) {
-    if (!node?.universal?.config && !node?.server?.config) continue;
+    if (!node?.universal?.config && !node?.server?.config)
+      continue;
     current = {
       ...current,
       ...node?.universal?.config,
@@ -3431,9 +3528,9 @@ async function respond(request, options2, manifest, state) {
     return get_public_env(request);
   }
   if (decoded.startsWith(`/${options2.app_dir}`)) {
-    const headers22 = new Headers();
-    headers22.set("cache-control", "public, max-age=0, must-revalidate");
-    return text("Not found", { status: 404, headers: headers22 });
+    const headers3 = new Headers();
+    headers3.set("cache-control", "public, max-age=0, must-revalidate");
+    return text("Not found", { status: 404, headers: headers3 });
   }
   const is_data_request = has_data_suffix(decoded);
   let invalidated_data_nodes;
@@ -3448,7 +3545,8 @@ async function respond(request, options2, manifest, state) {
     const matchers = await manifest._.matchers();
     for (const candidate of manifest._.routes) {
       const match = candidate.pattern.exec(decoded);
-      if (!match) continue;
+      if (!match)
+        continue;
       const matched = exec(match, candidate.params, matchers);
       if (matched) {
         route = candidate;
@@ -3509,12 +3607,14 @@ async function respond(request, options2, manifest, state) {
         trailing_slash = "always";
       } else if (route.page) {
         const nodes = await load_page_nodes(route.page, manifest);
-        if (BROWSER) ;
+        if (BROWSER)
+          ;
         trailing_slash = get_option(nodes, "trailingSlash");
       } else if (route.endpoint) {
         const node = await route.endpoint();
         trailing_slash = node.trailingSlash;
-        if (BROWSER) ;
+        if (BROWSER)
+          ;
       }
       if (!is_data_request) {
         const normalized = normalize_path(url.pathname, trailing_slash ?? "never");
@@ -3571,7 +3671,8 @@ async function respond(request, options2, manifest, state) {
       get_cookie_header,
       set_internal
     });
-    if (state.prerendering && !state.prerendering.fallback) disable_search(url);
+    if (state.prerendering && !state.prerendering.fallback)
+      disable_search(url);
     const response = await options2.hooks.handle({
       event,
       resolve: (event2, opts) => resolve2(event2, opts).then((response2) => {
@@ -3600,7 +3701,7 @@ async function respond(request, options2, manifest, state) {
         response.headers.get("etag")
       );
       if (if_none_match_value === etag2) {
-        const headers22 = new Headers({ etag: etag2 });
+        const headers3 = new Headers({ etag: etag2 });
         for (const key2 of [
           "cache-control",
           "content-location",
@@ -3610,11 +3711,12 @@ async function respond(request, options2, manifest, state) {
           "set-cookie"
         ]) {
           const value = response.headers.get(key2);
-          if (value) headers22.set(key2, value);
+          if (value)
+            headers3.set(key2, value);
         }
         return new Response(void 0, {
           status: 304,
-          headers: headers22
+          headers: headers3
         });
       }
     }

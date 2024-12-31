@@ -1,13 +1,14 @@
-import { n as noop, b as safe_not_equal } from "./equality.js";
 const internal = new URL("sveltekit-internal://");
 function resolve(base, path) {
-  if (path[0] === "/" && path[1] === "/") return path;
+  if (path[0] === "/" && path[1] === "/")
+    return path;
   let url = new URL(base, internal);
   url = new URL(path, url);
   return url.protocol === internal.protocol ? url.pathname + url.search + url.hash : url.href;
 }
 function normalize_path(path, trailing_slash) {
-  if (path === "/" || trailing_slash === "ignore") return path;
+  if (path === "/" || trailing_slash === "ignore")
+    return path;
   if (trailing_slash === "never") {
     return path.endsWith("/") ? path.slice(0, -1) : path;
   } else if (trailing_slash === "always" && !path.endsWith("/")) {
@@ -44,7 +45,8 @@ function make_trackable(url, callback, search_params_callback, allow_hash = fals
     configurable: true
   });
   const tracked_url_properties = ["href", "pathname", "search", "toString", "toJSON"];
-  if (allow_hash) tracked_url_properties.push("hash");
+  if (allow_hash)
+    tracked_url_properties.push("hash");
   for (const property of tracked_url_properties) {
     Object.defineProperty(tracked, property, {
       get() {
@@ -101,7 +103,8 @@ function has_data_suffix(pathname) {
   return pathname.endsWith(DATA_SUFFIX) || pathname.endsWith(HTML_DATA_SUFFIX);
 }
 function add_data_suffix(pathname) {
-  if (pathname.endsWith(".html")) return pathname.replace(/\.html$/, HTML_DATA_SUFFIX);
+  if (pathname.endsWith(".html"))
+    return pathname.replace(/\.html$/, HTML_DATA_SUFFIX);
   return pathname.replace(/\/$/, "") + DATA_SUFFIX;
 }
 function strip_data_suffix(pathname) {
@@ -110,64 +113,13 @@ function strip_data_suffix(pathname) {
   }
   return pathname.slice(0, -DATA_SUFFIX.length);
 }
-const subscriber_queue = [];
-function readable(value, start) {
-  return {
-    subscribe: writable(value, start).subscribe
-  };
-}
-function writable(value, start = noop) {
-  let stop = null;
-  const subscribers = /* @__PURE__ */ new Set();
-  function set(new_value) {
-    if (safe_not_equal(value, new_value)) {
-      value = new_value;
-      if (stop) {
-        const run_queue = !subscriber_queue.length;
-        for (const subscriber of subscribers) {
-          subscriber[1]();
-          subscriber_queue.push(subscriber, value);
-        }
-        if (run_queue) {
-          for (let i = 0; i < subscriber_queue.length; i += 2) {
-            subscriber_queue[i][0](subscriber_queue[i + 1]);
-          }
-          subscriber_queue.length = 0;
-        }
-      }
-    }
-  }
-  function update(fn) {
-    set(fn(
-      /** @type {T} */
-      value
-    ));
-  }
-  function subscribe(run, invalidate = noop) {
-    const subscriber = [run, invalidate];
-    subscribers.add(subscriber);
-    if (subscribers.size === 1) {
-      stop = start(set, update) || noop;
-    }
-    run(
-      /** @type {T} */
-      value
-    );
-    return () => {
-      subscribers.delete(subscriber);
-      if (subscribers.size === 0 && stop) {
-        stop();
-        stop = null;
-      }
-    };
-  }
-  return { set, update, subscribe };
-}
 function validator(expected) {
   function validate(module, file) {
-    if (!module) return;
+    if (!module)
+      return;
     for (const key in module) {
-      if (key[0] === "_" || expected.has(key)) continue;
+      if (key[0] === "_" || expected.has(key))
+        continue;
       const values = [...expected.values()];
       const hint = hint_for_supported_files(key, file?.slice(file.lastIndexOf("."))) ?? `valid exports are ${values.join(", ")}, or anything with a '_' prefix`;
       throw new Error(`Invalid export '${key}'${file ? ` in ${file}` : ""} (${hint})`);
@@ -228,19 +180,17 @@ const validate_page_server_exports = validator(valid_page_server_exports);
 const validate_server_exports = validator(valid_server_exports);
 export {
   add_data_suffix as a,
-  resolve as b,
-  decode_pathname as c,
+  decode_pathname as b,
+  decode_params as c,
   disable_search as d,
-  decode_params as e,
-  validate_layout_exports as f,
-  validate_page_server_exports as g,
+  validate_layout_exports as e,
+  validate_page_server_exports as f,
+  validate_page_exports as g,
   has_data_suffix as h,
-  validate_page_exports as i,
-  validate_server_exports as j,
+  validate_server_exports as i,
   make_trackable as m,
   normalize_path as n,
-  readable as r,
+  resolve as r,
   strip_data_suffix as s,
-  validate_layout_server_exports as v,
-  writable as w
+  validate_layout_server_exports as v
 };

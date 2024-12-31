@@ -2,3 +2,11 @@
     <h1 class="text-7xl">🎀</h1>
     <a href="/home" class="btn bg-white lg:text-xl text-lg font-bold text-[#f35087] mt-10">Continue</a>
 </div>
+
+<script lang="ts">
+    import { onMount } from 'svelte';
+
+    onMount(() => {
+        console.log('Hello World');
+    }); 
+</script>
