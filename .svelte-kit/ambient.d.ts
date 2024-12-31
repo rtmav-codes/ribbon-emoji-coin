@@ -29,6 +29,7 @@ declare module '$env/static/private' {
 	export const npm_package_scripts_test_e2e: string;
 	export const npm_package_devDependencies__eslint_compat: string;
 	export const npm_package_devDependencies_prettier: string;
+	export const npm_config_legacy_peer_deps: string;
 	export const TERM_PROGRAM: string;
 	export const npm_package_devDependencies_eslint_plugin_svelte: string;
 	export const npm_package_devDependencies_typescript_eslint: string;
@@ -43,6 +44,7 @@ declare module '$env/static/private' {
 	export const HOMEBREW_REPOSITORY: string;
 	export const CONDA_SHLVL: string;
 	export const npm_package_scripts_lint: string;
+	export const npm_package_dependencies__sveltejs_kit: string;
 	export const CONDA_PROMPT_MODIFIER: string;
 	export const TERM_PROGRAM_VERSION: string;
 	export const GSETTINGS_SCHEMA_DIR_CONDA_BACKUP: string;
@@ -52,6 +54,7 @@ declare module '$env/static/private' {
 	export const ZDOTDIR: string;
 	export const npm_package_private: string;
 	export const npm_package_devDependencies__sveltejs_kit: string;
+	export const npm_package_dependencies__sveltejs_adapter_vercel: string;
 	export const npm_config_registry: string;
 	export const npm_package_devDependencies_globals: string;
 	export const USER: string;
@@ -64,6 +67,7 @@ declare module '$env/static/private' {
 	export const npm_package_devDependencies_eslint: string;
 	export const npm_execpath: string;
 	export const npm_package_devDependencies_svelte: string;
+	export const npm_package_dependencies__sveltejs_vite_plugin_svelte: string;
 	export const _CE_CONDA: string;
 	export const npm_config_frozen_lockfile: string;
 	export const PATH: string;
@@ -105,6 +109,8 @@ declare module '$env/static/private' {
 	export const LOGNAME: string;
 	export const CONDA_PYTHON_EXE: string;
 	export const npm_package_scripts_format: string;
+	export const npm_package_dependencies_vite: string;
+	export const npm_package_dependencies_svelte: string;
 	export const npm_lifecycle_script: string;
 	export const VSCODE_GIT_IPC_HANDLE: string;
 	export const npm_package_devDependencies_prettier_plugin_tailwindcss: string;
@@ -154,6 +160,7 @@ declare module '$env/dynamic/private' {
 		npm_package_scripts_test_e2e: string;
 		npm_package_devDependencies__eslint_compat: string;
 		npm_package_devDependencies_prettier: string;
+		npm_config_legacy_peer_deps: string;
 		TERM_PROGRAM: string;
 		npm_package_devDependencies_eslint_plugin_svelte: string;
 		npm_package_devDependencies_typescript_eslint: string;
@@ -168,6 +175,7 @@ declare module '$env/dynamic/private' {
 		HOMEBREW_REPOSITORY: string;
 		CONDA_SHLVL: string;
 		npm_package_scripts_lint: string;
+		npm_package_dependencies__sveltejs_kit: string;
 		CONDA_PROMPT_MODIFIER: string;
 		TERM_PROGRAM_VERSION: string;
 		GSETTINGS_SCHEMA_DIR_CONDA_BACKUP: string;
@@ -177,6 +185,7 @@ declare module '$env/dynamic/private' {
 		ZDOTDIR: string;
 		npm_package_private: string;
 		npm_package_devDependencies__sveltejs_kit: string;
+		npm_package_dependencies__sveltejs_adapter_vercel: string;
 		npm_config_registry: string;
 		npm_package_devDependencies_globals: string;
 		USER: string;
@@ -189,6 +198,7 @@ declare module '$env/dynamic/private' {
 		npm_package_devDependencies_eslint: string;
 		npm_execpath: string;
 		npm_package_devDependencies_svelte: string;
+		npm_package_dependencies__sveltejs_vite_plugin_svelte: string;
 		_CE_CONDA: string;
 		npm_config_frozen_lockfile: string;
 		PATH: string;
@@ -230,6 +240,8 @@ declare module '$env/dynamic/private' {
 		LOGNAME: string;
 		CONDA_PYTHON_EXE: string;
 		npm_package_scripts_format: string;
+		npm_package_dependencies_vite: string;
+		npm_package_dependencies_svelte: string;
 		npm_lifecycle_script: string;
 		VSCODE_GIT_IPC_HANDLE: string;
 		npm_package_devDependencies_prettier_plugin_tailwindcss: string;
