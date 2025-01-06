@@ -1,10 +1,10 @@
 <!-- HOW TO BUY PAGE -->
 
 <!-- Main container with gradient background -->
-<div class="h-auto w-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-300 via-pink-300 to-pink-100 text-white flex flex-col items-center justify-center pb-36">
+<div class="h-auto w-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-300 via-pink-300 to-pink-100 text-white flex flex-col items-center justify-center pb-36 lg:px-0 px-12">
 
     <!-- Page header section -->
-    <h1 class="lg:text-7xl text-5xl lg:mt-36 mt-3">🎀</h1>
+    <h1 class="lg:text-7xl text-5xl lg:mt-36 mt-10">🎀</h1>
     <h2 class="lg:text-3xl text-xl font-bold text-center mt-2 text-[#f35087]">How to Buy</h2>
 
     <!-- Step-by-step instructions container -->
