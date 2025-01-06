@@ -4,9 +4,9 @@
 	import '../app.css';
 </script>
 
-<div class="ribbon-container">
+<div class="ribbon-container overflow-hidden">
 
-	{#each Array(10) as _, i}
+	{#each Array(30) as _, i}
 		<div 
 			class="ribbon" 
 			style="animation-delay: {i * 0.5}s; left: {Math.random() * 100}%"
@@ -34,7 +34,7 @@
 
 	.ribbon {
 		position: absolute;
-		top: -20px;
+		top: -50px;
 		width: 36px;
 		height: 36px;
 		background-image: url('/ribbon.png');

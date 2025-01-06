@@ -1,4 +1,4 @@
-<footer class="footer bg-[#fec7de] text-[#f35087] p-10 flex lg:flex-row flex-col justify-center items-center">
+<footer class="footer bg-[#fec7de] text-[#f35087] p-10 flex lg:flex-row flex-col justify-center items-center z-[10]">
 
     <div class="flex flex-col items-center lg:ml-18 lg:mr-36">
         <img src="/ribbon.png" alt="Pink Ribbon" class="w-20 h-20" />
