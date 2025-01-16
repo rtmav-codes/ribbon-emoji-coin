@@ -51,6 +51,7 @@ declare module '$env/static/private' {
 	export const npm_package_scripts_dev: string;
 	export const MallocNanoZone: string;
 	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
+	export const CURSOR_TRACE_ID: string;
 	export const ZDOTDIR: string;
 	export const npm_package_private: string;
 	export const npm_package_devDependencies__sveltejs_kit: string;
@@ -183,6 +184,7 @@ declare module '$env/dynamic/private' {
 		npm_package_scripts_dev: string;
 		MallocNanoZone: string;
 		ORIGINAL_XDG_CURRENT_DESKTOP: string;
+		CURSOR_TRACE_ID: string;
 		ZDOTDIR: string;
 		npm_package_private: string;
 		npm_package_devDependencies__sveltejs_kit: string;

@@ -18,7 +18,7 @@
                 </a>
             </button>
             <button class="w-18 btn bg-white rounded-full">
-                <a href="https://t.me/ribbonemoji" target="_blank">
+                <a href="https://t.me/RibbonEmojiCommunity" target="_blank">
                     <img src="/tg.png" alt="X" class="w-10 h-10" />
                 </a>
             </button>
