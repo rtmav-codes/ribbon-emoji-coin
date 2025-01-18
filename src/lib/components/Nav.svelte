@@ -23,6 +23,14 @@
                     🎀 How to Buy
                 </a>
             </li>
+            <li>
+              <a
+                  href="https://meme.ribbonemojicoin.xyz/"
+                  class="text-lg font-bold text-[#f35087]"
+                  >
+                  🎀 Memes
+              </a>
+          </li>
         </ul>
       </div>
       <a 
@@ -37,7 +45,12 @@
         <li>   
             <a href="/home"> 🎀 Home</a>
         </li>
-        <li><a href="/howtobuy">🎀 How to Buy</a></li>
+        <li>
+          <a href="/howtobuy">🎀 How to Buy</a>
+        </li>
+        <li>
+          <a href="https://meme.ribbonemojicoin.xyz/">🎀 Memes</a>
+        </li>
       </ul>
     </div>
 
