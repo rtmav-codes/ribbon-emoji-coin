@@ -2,6 +2,7 @@
 
 <!-- Main container with gradient background -->
 <div class="h-screen w-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-300 via-pink-300 to-pink-100 text-white flex flex-col items-center justify-center p-10">
+
     <!-- Project Title Section -->
     <h1 class="text-7xl">🎀</h1>
     <h2 class="lg:text-3xl text-xl font-bold text-center mt-2 text-[#f35087]">The Pink Ribbon Emoji Coin</h2>
@@ -34,8 +35,21 @@
 <script lang="ts">
     import { onMount } from 'svelte';
 
-    // Component initialization
+    let audioElement: HTMLAudioElement;
+    let isPlaying = false;
+
+    function toggleAudio() {
+        if (audioElement.paused) {
+            audioElement.play();
+            isPlaying = true;
+        } else {
+            audioElement.pause();
+            isPlaying = false;
+        }
+    }
+
     onMount(() => {
-        console.log('Hello World');
+        // Initialize audio element
+        audioElement.volume = 0.5; // Set initial volume to 50%
     }); 
 </script>

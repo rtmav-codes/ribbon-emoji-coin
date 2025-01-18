@@ -55,21 +55,51 @@
     </div>
 
     <div class="navbar-end text-[#fec7de]">
-      <a 
-        href="https://www.emojicoin.fun/market/ribbon" 
-        target="_blank" 
-        class="btn text-[#fec7de] bg-black hover:bg-black text-2xl"
+        <!-- Audio Controls -->
+        <button 
+            class="btn bg-black hover:bg-black mr-2 text-2xl"
+            on:click={toggleAudio}
         >
-        <img src="/emojifun.png" alt="emojifun" class="w-10 h-10" />
-      </a>
+            {#if isPlaying}
+                🔊
+            {:else}
+                🔈
+            {/if}
+        </button>
+        
+        <a 
+            href="https://www.emojicoin.fun/market/ribbon" 
+            target="_blank" 
+            class="btn text-[#fec7de] bg-black hover:bg-black text-2xl"
+        >
+            <img src="/emojifun.png" alt="emojifun" class="w-10 h-10" />
+        </a>
     </div>
 
   </div>
 
-  <script lang="ts">
+<!-- Hidden audio element -->
+<audio bind:this={audioElement} loop>
+    <source src="/ribbon.mp3" type="audio/mp3">
+</audio>
+
+<script lang="ts">
     import { onMount } from 'svelte';
 
+    let audioElement: HTMLAudioElement;
+    let isPlaying = false;
+
+    function toggleAudio() {
+        if (audioElement.paused) {
+            audioElement.play();
+            isPlaying = true;
+        } else {
+            audioElement.pause();
+            isPlaying = false;
+        }
+    }
+
     onMount(() => {
-        console.log('Hello World');
+        audioElement.volume = 0.5; // Set initial volume to 50%
     }); 
 </script>

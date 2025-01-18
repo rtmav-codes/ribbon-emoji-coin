@@ -1,4 +1,4 @@
-import { g as getContext, c as create_ssr_component, b as subscribe } from "../../chunks/ssr.js";
+import { g as getContext, c as create_ssr_component, d as subscribe } from "../../chunks/ssr.js";
 import "../../chunks/exports.js";
 import { o as onMount } from "../../chunks/ssr2.js";
 import { e as escape } from "../../chunks/escape.js";
